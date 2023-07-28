@@ -51,7 +51,6 @@ const Emoji = ({ emojies }) => {
       <div className="flex flex-wrap justify-center items-center">
         {emoji?.map((emoji, i) => (
           <div
-            // data-aos="zoom-out-up"
             key={i}
             className="border-2 border-gray-300 rounded-lg p-3 text-center m-2"
           >
