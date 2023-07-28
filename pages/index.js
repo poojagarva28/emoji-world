@@ -14,7 +14,6 @@ export default function Home({ emojies }) {
 
   return (
     <main className="m-10">
-      <h1 className="text-center text-3xl font-bold">Emoji World</h1>
       <Emoji emojies={emojies} />
     </main>
   );
