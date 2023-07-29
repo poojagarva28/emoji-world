@@ -53,7 +53,7 @@ const Emoji = ({ emojies }) => {
   useEffect(() => {
     const handleScroll = () => {
       // Set isSticky to true if the scroll position is greater than or equal to 10
-      setIsSticky(window.scrollY >= 10);
+      setIsSticky(window.scrollY >= 120);
     };
 
     // Attach the event listener when the component mounts
@@ -106,7 +106,7 @@ const Emoji = ({ emojies }) => {
           <div
             className={`flex justify-evenly font-bold items-center mb-7 text-bold sticky top-10 z-20 ${
               isSticky
-                ? "bg-black px-1 py-4 pb-2 rounded-lg sticky-background zoomed-in"
+                ? "bg-black px-1 py-4 pb-2 rounded-lg sticky-background zoomed-in border-0"
                 : ""
             }`}
           >
@@ -129,7 +129,7 @@ const Emoji = ({ emojies }) => {
             </button>
             {categories?.map((category) => (
               <button
-                className={`bg-black text-lg hover:bg-white hover:text-black border-black rounded-md mb-2 mx-2 px-4 py-1 border-2 transition-all ${
+                className={`bg-black text-base hover:bg-white hover:text-black border-black rounded-md mb-2 mx-2 px-4 py-1 border-2 transition-all ${
                   selectedCategory.toLocaleLowerCase() ===
                     category.toLocaleLowerCase() && "active_category"
                 } ${
@@ -140,7 +140,7 @@ const Emoji = ({ emojies }) => {
                     ? "bg-white text-black "
                     : "bg-black text-white "
                 } 
-              ${isSticky && "!hover:bg-black !hover:text-white"}
+              ${isSticky && "!hover:bg-black !hover:text-white !border-0"}
               `}
                 key={category}
                 onClick={(e) => handleCategory(e)}
@@ -173,13 +173,13 @@ const Emoji = ({ emojies }) => {
                 onClick={() => handleCopy(emoji?.htmlCode?.[0])}
               >
                 <h1
-                  className={`font-semibold text-black font-comfortaa`}
+                  className={`font-extrabold text-sm text-black font-comfortaa`}
                   // style={{ color: isDarkMode && getRandomPastelColor() }}
                 >
                   {emoji?.name?.slice(0, 1).toUpperCase()}
                   {emoji?.name?.slice(1)}
                 </h1>
-                <h4 className={`text-2xl text-black`}>
+                <h4 className={` text-black text-sm`}>
                   {decode(emoji?.htmlCode?.[0])}
                 </h4>
                 <h5
