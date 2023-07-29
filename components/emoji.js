@@ -74,7 +74,7 @@ const Emoji = ({ emojies }) => {
   return (
     <>
       <div
-        className="fixed right-0 bottom-16 flex justify-center items-center rounded-full"
+        className="fixed -right-4 bottom-10 flex justify-center items-center rounded-full"
         style={{
           transform: "scaleX(-1)", // This flips the image horizontally
         }}
@@ -98,7 +98,7 @@ const Emoji = ({ emojies }) => {
         <div className={`p-10 px-4 mt-0 pt-0`}>
           <div className="text-center mt-20 relative z-30 mb-16">
             <h1
-              className={`text-3xl font-extrabold bg-yellow-400 inline border-8  border-double border-black py-3 px-5 rounded-3xl`}
+              className={`text-2xl font-extrabold bg-yellow-400 inline border-8  border-double border-black py-3 px-5 rounded-3xl`}
             >
               emoji world
             </h1>
