@@ -23,7 +23,7 @@ const Info = ({ setInfo }) => {
           <div className="bg-white  border-2 border-black p-4  rounded-lg w-2/4  h-auto relative">
             <div className="text-center mt-8 relative z-50 mb-10">
               <h1
-                className={`text-3xl font-extrabold bg-yellow-400 inline border-8  border-double border-black py-3 px-5 rounded-3xl`}
+                className={`text-lg font-extrabold bg-yellow-400 inline border-8  border-double border-black py-3 px-5 rounded-3xl`}
               >
                 emoji world
               </h1>
