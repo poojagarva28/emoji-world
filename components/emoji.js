@@ -87,6 +87,7 @@ const Emoji = ({ emojies }) => {
           height={120}
           alt="know more"
           onClick={() => setInfo(true)}
+          priority={true}
         />
       </div>
 
