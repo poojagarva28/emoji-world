@@ -64,3 +64,6 @@ body {
 .infoblock p {
   margin-bottom: 10px;
 }
+.searchbox p {
+  margin-bottom: 0px;
+}

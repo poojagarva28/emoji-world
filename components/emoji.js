@@ -5,6 +5,8 @@ import toast, { Toaster } from "react-hot-toast";
 import Image from "next/image";
 import EmojiGif from "@/public/emoji.gif";
 import Info from "./info";
+import { FcSearch } from "react-icons/fc";
+import SearchEmoji from "./search";
 
 const notify = (htmlCode) => toast(`${decode(htmlCode)} copied`);
 
@@ -14,6 +16,7 @@ const Emoji = ({ emojies }) => {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [isSticky, setIsSticky] = useState(false);
   const [info, setInfo] = useState(false);
+  const [search, setSearch] = useState(false);
 
   useEffect(() => {
     const uniqueCategories = emojies?.map((cat) => cat.category);
@@ -97,101 +100,113 @@ const Emoji = ({ emojies }) => {
         </>
       ) : (
         <div className={`p-10 px-4 mt-0 pt-0`}>
-          <div className="text-center mt-20 relative z-30 mb-16">
-            <h1
-              className={`text-2xl font-extrabold bg-yellow-400 inline border-8  border-double border-black py-3 px-5 rounded-3xl`}
-            >
-              emoji world
-            </h1>
-          </div>
-          <div
-            className={`flex justify-evenly font-bold items-center mb-7 text-bold sticky top-10 z-20 ${
-              isSticky
-                ? "bg-black px-1 py-4 pb-2 rounded-lg sticky-background zoomed-in border-0"
-                : ""
-            }`}
+          <button
+            className="fixed bottom-14 left-4 bg-white p-2 border-2 border-black rounded-full"
+            onClick={() => setSearch(true)}
           >
-            <button
-              className={`bg-black  text-lg  hover:bg-white hover:text-black border-black rounded-md mb-2 px-4 py-1 border-2 transition-all ${
-                selectedCategory.toLocaleLowerCase() === "all" &&
-                "active_category"
-              } ${
-                isSticky &&
-                selectedCategory.toLocaleLowerCase() === "all" &&
-                "active_category"
-                  ? "bg-white text-black "
-                  : "bg-black text-white "
-              } 
+            <FcSearch size={24} />
+          </button>
+          {search ? (
+            <SearchEmoji setSearch={setSearch} emojies={emojies} />
+          ) : (
+            <>
+              <div className="text-center mt-20 relative z-30 mb-16">
+                <h1
+                  className={`text-2xl font-extrabold bg-yellow-400 inline border-8  border-double border-black py-3 px-5 rounded-3xl`}
+                >
+                  emoji world
+                </h1>
+              </div>
+              <div
+                className={`flex justify-evenly font-bold items-center mb-7 text-bold sticky top-10 z-20 ${
+                  isSticky
+                    ? "bg-black px-1 py-4 pb-2 rounded-lg sticky-background zoomed-in border-0"
+                    : ""
+                }`}
+              >
+                <button
+                  className={`bg-black  text-lg  hover:bg-white hover:text-black border-black rounded-md mb-2 px-4 py-1 border-2 transition-all ${
+                    selectedCategory.toLocaleLowerCase() === "all" &&
+                    "active_category"
+                  } ${
+                    isSticky &&
+                    selectedCategory.toLocaleLowerCase() === "all" &&
+                    "active_category"
+                      ? "bg-white text-black "
+                      : "bg-black text-white "
+                  } 
               ${isSticky && "!hover:bg-black !hover:text-white"}
               `}
-              onClick={(e) => handleCategory(e)}
-            >
-              all
-            </button>
-            {categories?.map((category) => (
-              <button
-                className={`bg-black text-base hover:bg-white hover:text-black border-black rounded-md mb-2 mx-2 px-4 py-1 border-2 transition-all ${
-                  selectedCategory.toLocaleLowerCase() ===
-                    category.toLocaleLowerCase() && "active_category"
-                } ${
-                  isSticky &&
-                  selectedCategory.toLocaleLowerCase() ===
-                    category.toLocaleLowerCase() &&
-                  "active_category"
-                    ? "bg-white text-black "
-                    : "bg-black text-white "
-                } 
+                  onClick={(e) => handleCategory(e)}
+                >
+                  all
+                </button>
+                {categories?.map((category) => (
+                  <button
+                    className={`bg-black text-base hover:bg-white hover:text-black border-black rounded-md mb-2 mx-2 px-4 py-1 border-2 transition-all ${
+                      selectedCategory.toLocaleLowerCase() ===
+                        category.toLocaleLowerCase() && "active_category"
+                    } ${
+                      isSticky &&
+                      selectedCategory.toLocaleLowerCase() ===
+                        category.toLocaleLowerCase() &&
+                      "active_category"
+                        ? "bg-white text-black "
+                        : "bg-black text-white "
+                    } 
               ${isSticky && "!hover:bg-black !hover:text-white !border-0"}
               `}
-                key={category}
-                onClick={(e) => handleCategory(e)}
-              >
-                {category}
-              </button>
-            ))}
-          </div>
-          <motion.div
-            className="flex flex-wrap justify-center items-center cursor-pointer"
-            initial={{ opacity: 0, y: -20 }} // Initial animation values
-            animate={{ opacity: 1, y: 0 }} // Animation values to be reached
-            exit={{ opacity: 0, y: 20 }} // Animation values when the component is removed from the DOM
-            transition={{ duration: 0.3 }} // Animation duration
-          >
-            {emoji?.map((emoji, i) => (
+                    key={category}
+                    onClick={(e) => handleCategory(e)}
+                  >
+                    {category}
+                  </button>
+                ))}
+              </div>
               <motion.div
-                key={i}
-                className="rounded-lg p-3 text-center m-2"
-                style={{
-                  backgroundColor: getRandomPastelColor(),
-                  border: "2px solid #000",
-                  // border: `2px solid ${isDarkMode && getRandomPastelColor()}`,
-                  // boxShadow: isDarkMode
-                  //   ? `5px 5px 0px 0px ${getRandomPastelColor()} `
-                  //   : "",
-                }} // Set the random pastel color
-                whileHover={{ scale: 1.02 }} // Animation on hover
-                whileTap={{ scale: 0.95 }} // Animation when clicked
-                onClick={() => handleCopy(emoji?.htmlCode?.[0])}
+                className="flex flex-wrap justify-center items-center cursor-pointer"
+                initial={{ opacity: 0, y: -20 }} // Initial animation values
+                animate={{ opacity: 1, y: 0 }} // Animation values to be reached
+                exit={{ opacity: 0, y: 20 }} // Animation values when the component is removed from the DOM
+                transition={{ duration: 0.3 }} // Animation duration
               >
-                <h1
-                  className={`font-extrabold text-sm text-black font-comfortaa`}
-                  // style={{ color: isDarkMode && getRandomPastelColor() }}
-                >
-                  {emoji?.name?.slice(0, 1).toUpperCase()}
-                  {emoji?.name?.slice(1)}
-                </h1>
-                <h4 className={` text-black text-sm`}>
-                  {decode(emoji?.htmlCode?.[0])}
-                </h4>
-                <h5
-                  className={`text-sm`}
-                  // style={{ color: isDarkMode && getRandomPastelColor() }}
-                >
-                  {emoji?.htmlCode?.[0]}
-                </h5>
+                {emoji?.map((emoji, i) => (
+                  <motion.div
+                    key={i}
+                    className="rounded-lg p-3 text-center m-2"
+                    style={{
+                      backgroundColor: getRandomPastelColor(),
+                      border: "2px solid #000",
+                      // border: `2px solid ${isDarkMode && getRandomPastelColor()}`,
+                      // boxShadow: isDarkMode
+                      //   ? `5px 5px 0px 0px ${getRandomPastelColor()} `
+                      //   : "",
+                    }} // Set the random pastel color
+                    whileHover={{ scale: 1.02 }} // Animation on hover
+                    whileTap={{ scale: 0.95 }} // Animation when clicked
+                    onClick={() => handleCopy(emoji?.htmlCode?.[0])}
+                  >
+                    <h1
+                      className={`font-extrabold text-sm text-black font-comfortaa`}
+                      // style={{ color: isDarkMode && getRandomPastelColor() }}
+                    >
+                      {emoji?.name?.slice(0, 1).toUpperCase()}
+                      {emoji?.name?.slice(1)}
+                    </h1>
+                    <h4 className={` text-black text-sm`}>
+                      {decode(emoji?.htmlCode?.[0])}
+                    </h4>
+                    <h5
+                      className={`text-sm`}
+                      // style={{ color: isDarkMode && getRandomPastelColor() }}
+                    >
+                      {emoji?.htmlCode?.[0]}
+                    </h5>
+                  </motion.div>
+                ))}
               </motion.div>
-            ))}
-          </motion.div>
+            </>
+          )}
         </div>
       )}
       <Toaster
