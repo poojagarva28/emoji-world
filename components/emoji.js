@@ -3,6 +3,10 @@ import { decode } from "html-entities";
 import { motion, AnimatePresence } from "framer-motion";
 import Switch from "react-switch";
 import { FiMoon, FiSun } from "react-icons/fi";
+import toast, { Toaster } from "react-hot-toast";
+
+const notify = (htmlCode) =>
+  toast(`Copied ${htmlCode} for ${decode(htmlCode)}`);
 
 const Emoji = ({ emojies }) => {
   const [emoji, setEmoji] = useState(emojies);
@@ -15,11 +19,17 @@ const Emoji = ({ emojies }) => {
     const categories = new Set(uniqueCategories);
     const categoriesArr = [...categories];
     setCategories(categoriesArr);
-  }, []);
+
+    // Check if the preferred color scheme is dark on the client side
+    const prefersDarkScheme = window.matchMedia(
+      "(prefers-color-scheme: dark)"
+    ).matches;
+    setIsDarkMode(prefersDarkScheme);
+  }, [emojies]);
 
   const getRandomPastelColor = () => {
     const hue = Math.floor(Math.random() * 280);
-    return `hsl(${hue}, 100%, ${90}%)`;
+    return `hsl(${hue}, 100%, 90%)`;
   };
   const handleCategory = (e) => {
     setSelectedCategory(e.target.innerHTML.toLowerCase());
@@ -34,6 +44,19 @@ const Emoji = ({ emojies }) => {
 
   const handleDarkModeChange = (checked) => {
     setIsDarkMode(checked);
+  };
+
+  const handleCopy = (htmlCode) => {
+    navigator.clipboard
+      .writeText(htmlCode)
+      .then(() => {
+        console.log("Copied to clipboard:", htmlCode);
+        notify(htmlCode);
+      })
+      .catch((error) => {
+        console.error("Failed to copy:", error);
+        notify(htmlCode);
+      });
   };
 
   useEffect(() => {
@@ -68,8 +91,10 @@ const Emoji = ({ emojies }) => {
           onChange={handleDarkModeChange}
           onColor="#ccc"
           offColor="#ccc"
-          checkedIcon={<FiMoon />}
-          uncheckedIcon={<FiSun />}
+          checkedIcon={""}
+          uncheckedIcon={""}
+          //   checkedIcon={<FiMoon />}
+          //   uncheckedIcon={<FiSun />}
           height={40}
           width={70}
           handleDiameter={20}
@@ -78,13 +103,13 @@ const Emoji = ({ emojies }) => {
       </div>
 
       <div className={`p-10 ${isDarkMode ? "dark-mode" : "light-mode"}`}>
-        <div className="flex justify-between items-center mb-10">
+        <div className="flex justify-between items-center mb-7">
           <button
             className={`${
               !isDarkMode
-                ? "bg-black text-white hover:bg-white  border-black hover:text-black"
-                : "bg-white text-black hover:bg-black  border-white hover:text-white "
-            } rounded-md mb-2  px-4 py-1 border-2  ${
+                ? "bg-black text-white hover:bg-white hover:text-black border-black"
+                : "border-2 text-white bg-black"
+            } rounded-md mb-2 px-4 py-1 border-2 transition-all ${
               selectedCategory.toLocaleLowerCase() === "all" &&
               "active_category"
             }`}
@@ -96,9 +121,9 @@ const Emoji = ({ emojies }) => {
             <button
               className={`${
                 !isDarkMode
-                  ? "bg-black text-white hover:bg-white  border-black hover:text-black"
-                  : "bg-white text-black hover:bg-black  border-white hover:text-white "
-              } rounded-md mb-2  px-4 py-1 border-2   ${
+                  ? "bg-black text-white hover:bg-white hover:text-black border-black"
+                  : "border-2 text-white bg-black"
+              } rounded-md mb-2 px-4 py-1 border-2 transition-all ${
                 selectedCategory.toLocaleLowerCase() ===
                   category.toLocaleLowerCase() && "active_category"
               }`}
@@ -130,6 +155,7 @@ const Emoji = ({ emojies }) => {
               }} // Set the random pastel color
               whileHover={{ scale: 1.02 }} // Animation on hover
               whileTap={{ scale: 0.95 }} // Animation when clicked
+              onClick={() => handleCopy(emoji?.htmlCode?.[0])}
             >
               <h1
                 className={`font-semibold text-black`}
@@ -155,6 +181,17 @@ const Emoji = ({ emojies }) => {
           ))}
         </motion.div>
       </div>
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          // Define default options
+          duration: 5000,
+          style: {
+            background: isDarkMode ? "#fff" : "#000",
+            color: !isDarkMode ? "#fff" : "#000",
+          },
+        }}
+      />
     </>
   );
 };
