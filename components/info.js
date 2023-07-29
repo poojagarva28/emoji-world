@@ -34,27 +34,28 @@ const Info = ({ setInfo }) => {
             </h3>
             <p>
               The wacky creation that happened when I mixed emojis with my
-              coding obsession! 🎉 It's like I took a spoonful of HTML, a dash
-              of Next.js, sprinkled some emojies all around, and BOOM! Emoji
-              World was born!
+              coding obsession! 🎉 It&apos;s like I took a spoonful of HTML, a
+              dash of Next.js, sprinkled some emojies all around, and BOOM!
+              Emoji World was born!
             </p>
             <p>
               Now, let me geek out for a moment. I dove into the magical world
               of Next.js, creating smooth routes that make exploring emojis feel
               like riding a unicorn through a rainbow 🦄🌈. And those
-              meticulously organized categories? They're like the perfectly
+              meticulously organized categories? They&apos;re like the perfectly
               stacked code blocks that make my inner neat freak jump for joy! 🤩
             </p>
             <p>
-              But it's not all about technical wizardry – it's about spreading
-              joy and laughter! Each emoji shines like a digital comedian, with
-              vibrant images that give them superstar charisma. With just a
-              click, you can copy the HTML code entity for your favorite emoji
-              and sprinkle that emoji magic into your web projects. 💻✨
+              But it&apos;s not all about technical wizardry – it&apos;s about
+              spreading joy and laughter! Each emoji shines like a digital
+              comedian, with vibrant images that give them superstar charisma.
+              With just a click, you can copy the HTML code entity for your
+              favorite emoji and sprinkle that emoji magic into your web
+              projects. 💻✨
             </p>
             <p>
-              Grab your virtual party hat, jump in, and let's make some HTML
-              magic happen! 🪄
+              Grab your virtual party hat, jump in, and let&apos;s make some
+              HTML magic happen! 🪄
             </p>
             <p
               onClick={() => setInfo(false)}
