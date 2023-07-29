@@ -110,7 +110,7 @@ const Emoji = ({ emojies }) => {
             <SearchEmoji setSearch={setSearch} emojies={emojies} />
           ) : (
             <>
-              <div className="text-center mt-20 relative z-30 mb-16">
+              <div className="text-center mt-14 relative z-30 mb-14">
                 <h1
                   className={`text-2xl font-extrabold bg-yellow-400 inline border-8  border-double border-black py-3 px-5 rounded-3xl`}
                 >
