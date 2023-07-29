@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Inter } from "next/font/google";
 import Emoji from "@/components/emoji";
+import Footer from "@/components/footer";
 // import AOS from "aos";
 // import "aos/dist/aos.css";
 // import { useEffect } from "react";
@@ -15,6 +16,7 @@ export default function Home({ emojies }) {
   return (
     <main className="m-10">
       <Emoji emojies={emojies} />
+      <Footer />
     </main>
   );
 }
